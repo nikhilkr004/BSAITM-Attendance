@@ -1,0 +1,5 @@
+<!-- res/drawable/color_circle.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FF0000" /> <!-- Default color, this will change dynamically -->
+    <corners android:radius="25dp" />
+</shape>

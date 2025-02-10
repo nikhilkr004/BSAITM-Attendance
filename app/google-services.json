@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "945866558626",
+    "firebase_url": "https://bsaitmadmin-default-rtdb.firebaseio.com",
+    "project_id": "bsaitmadmin",
+    "storage_bucket": "bsaitmadmin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945866558626:android:6980f7441edccf60ef1bfb",
+        "android_client_info": {
+          "package_name": "com.example.bsaitm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANoSdw8OAWGfmu8wYbkC9zzS1podi0q9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945866558626:android:2748c4a45a3b7f9aef1bfb",
+        "android_client_info": {
+          "package_name": "com.example.bsaitmadmin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANoSdw8OAWGfmu8wYbkC9zzS1podi0q9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945866558626:android:839aae399ac25c01ef1bfb",
+        "android_client_info": {
+          "package_name": "com.example.bsaitmattendance"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANoSdw8OAWGfmu8wYbkC9zzS1podi0q9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
