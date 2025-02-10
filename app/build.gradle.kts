@@ -60,7 +60,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.database)
-    implementation(libs.firebase.auth)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -71,5 +71,6 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("org.apache.commons:commons-csv:1.8")
     implementation ("com.intuit.sdp:sdp-android:1.1.1")
+    implementation ("com.google.firebase:firebase-auth:22.3.1")
 
 }

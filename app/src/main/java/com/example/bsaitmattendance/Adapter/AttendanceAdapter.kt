@@ -57,7 +57,7 @@ class AttendanceAdapter(
                 // Update present count based on selection
                 if (selectedStatus == "Present" && previousStatus != "Present") {
                     presentCount++
-                } else if (selectedStatus == "Absent" && previousStatus == "Present") {
+                } else if (selectedStatus == "Absent" && previousStatus == "Absent") {
                     presentCount--
                 }
 
