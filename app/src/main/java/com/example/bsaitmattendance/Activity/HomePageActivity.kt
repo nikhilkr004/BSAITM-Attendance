@@ -28,5 +28,9 @@ class HomePageActivity : AppCompatActivity() {
             startActivity(Intent(this,MainActivity::class.java))
         }
 
+        binding.addnotice.setOnClickListener {
+            startActivity(Intent(this,StudentNotification::class.java))
+        }
+
     }
 }

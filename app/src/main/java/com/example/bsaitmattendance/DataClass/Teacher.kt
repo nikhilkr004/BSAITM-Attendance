@@ -7,9 +7,13 @@ data class Teacher(
     val name:String?="",
     val email:String?="",
     val uid:String?="",
-    val date:String?=""
+    val date:String?="",
+    val image:String?="",
+    val number:String?=""
 ):Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -22,6 +26,8 @@ data class Teacher(
         parcel.writeString(email)
         parcel.writeString(uid)
         parcel.writeString(date)
+        parcel.writeString(image)
+        parcel.writeString(number)
     }
 
     override fun describeContents(): Int {
