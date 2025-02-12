@@ -73,7 +73,7 @@ class SignUpActivity : AppCompatActivity() {
 
                 val currentUser = auth.currentUser!!.uid
                 val date = currentDate()
-                val teacher = Teacher(name, email, currentUser, date,"","")
+                val teacher = Teacher(name, email, currentUser, date,"null","null")
 
                db.collection("Teacher").document(currentUser).set(teacher)
                     .addOnCompleteListener() {
