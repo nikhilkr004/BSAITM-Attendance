@@ -12,12 +12,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bsaitmattendance.Adapter.AttendanceAdapter
 import com.example.bsaitmattendance.Adapter.Student
-import com.example.bsaitmattendance.Constant.diplomcomputersem1b1
-import com.example.bsaitmattendance.Constant.diplomcomputersem2b1
-import com.example.bsaitmattendance.Constant.diplomcomputersem3b1
-import com.example.bsaitmattendance.Constant.diplomcomputersem4b1
-import com.example.bsaitmattendance.Constant.diplomcomputersem5b1
-import com.example.bsaitmattendance.Constant.diplomcomputersem6b1
+import com.example.bsaitmattendance.Constant.diplomacomputersem1b1
+import com.example.bsaitmattendance.Constant.diplomacomputersem2b1
+import com.example.bsaitmattendance.Constant.diplomacomputersem3b1
+import com.example.bsaitmattendance.Constant.diplomacomputersem4b1
+import com.example.bsaitmattendance.Constant.diplomacomputersem5b1
+import com.example.bsaitmattendance.Constant.diplomacomputersem6b1
 import com.example.bsaitmattendance.databinding.ActivityMainBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -97,29 +97,40 @@ class MainActivity : AppCompatActivity() {
         val branch = binding.branch.text.toString()
         val semester = binding.semester.text.toString()
         val batch = binding.batch.text.toString()
+        val subject = binding.selectSubject.text.toString()
 
+        val newSubject=subject.toString().trim().replace(" ", "").lowercase()
 
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         val checkInTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date())
 
         for ((studentId, status) in attendanceMap) {
-            val attandanceRef =
-                db.collection(course).document(branch).collection(semester).document(batch)
-                    .collection("studentsAttendance").document(studentId).collection("attendance")
-                    .document(currentDate)
-
+            val attendanceRef = db.collection(course)
+                .document(branch)
+                .collection(semester)
+                .document(batch)
+                .collection("studentsAttendance")
+                .document(studentId)
+                .collection("subjects")
+                .document(newSubject)
+                .collection("attendance")
+                .document(currentDate)
 
             val attendanceData = hashMapOf(
                 "check_in_time" to checkInTime,
                 "status" to (status ?: "Absent")
             )
 
-            attandanceRef.set(attendanceData)
+            Log.d("DEBUG", "Saving Attendance for Student: $studentId, Subject: $subject, Date: $currentDate, Status: ${status ?: "Absent"}")
+
+            attendanceRef.set(attendanceData)
                 .addOnSuccessListener {
+                    Log.d("DEBUG", "Attendance Saved Successfully for $studentId on $currentDate")
                     Constant.hideDialog()
                     finish()
                 }
                 .addOnFailureListener { e ->
+                    Log.e("FirestoreError", "Error submitting attendance: ${e.message}")
                     Toast.makeText(
                         this,
                         "Error submitting attendance: ${e.message}",
@@ -128,6 +139,7 @@ class MainActivity : AppCompatActivity() {
                 }
         }
     }
+
 
     private fun getUserInfo() {
         Constant.showDialog(this, "loading students list")
@@ -180,62 +192,47 @@ class MainActivity : AppCompatActivity() {
         binding.branch.setAdapter(branch)
         binding.batch.setAdapter(batch)
 
-
-        //// for the subject
-
-        // Listeners to detect when all fields are selected
         binding.courses.setOnItemClickListener { _, _, _, _ -> checkAndSetSubjects() }
         binding.semester.setOnItemClickListener { _, _, _, _ -> checkAndSetSubjects() }
         binding.branch.setOnItemClickListener { _, _, _, _ -> checkAndSetSubjects() }
         binding.batch.setOnItemClickListener { _, _, _, _ -> checkAndSetSubjects() }
 
-    }
 
+    }
     private fun checkAndSetSubjects() {
-        val selectedCourse = binding.courses.text.toString()
-        val selectedSemester = binding.semester.text.toString()
-        val selectedBranch = binding.branch.text.toString()
-        val selectedBatch = binding.batch.text.toString()
 
-        // Ensure all fields are selected
-        if (selectedCourse.isNotEmpty() && selectedSemester.isNotEmpty() &&
-            selectedBranch.isNotEmpty() && selectedBatch.isNotEmpty()) {
+        val course = binding.courses.text.toString().trim().replace(" ", "").lowercase()
+        val branch = binding.branch.text.toString().trim().replace(" ", "").lowercase()
+        val semester = binding.semester.text.toString().trim().replace(" ", "").lowercase()
+        val batch = binding.batch.text.toString().trim().replace(" ", "").lowercase()
 
-            val course= selectedCourse.replace(" ", "").lowercase()
-             val branch= selectedSemester.replace(" ", "").lowercase()
-             val semester =  selectedBranch.replace(" ", "").lowercase()
-              val batch=  selectedBatch.replace(" ", "").lowercase()
+        val selectedKey=course+branch+semester+batch
 
-                val sub= course + branch + semester + batch
-
-
-
-            setSubjects(sub)
-        }
-    }
-
-
-
-    private fun setSubjects(selectedSemester: String) {
-        val subjectList = when (selectedSemester) {
-            "diplomcomputersem1b1" -> diplomcomputersem1b1
-            "diplomcomputersem2b1" -> diplomcomputersem2b1
-            "diplomcomputersem3b1" -> diplomcomputersem3b1
-            "diplomcomputersem4b1" -> diplomcomputersem4b1
-            "diplomcomputersem5b1" -> diplomcomputersem5b1
-            "diplomcomputersem6b1" -> diplomcomputersem6b1
+        val subjectList = when (selectedKey) {
+            "diplomacomputersem1b1" -> diplomacomputersem1b1
+            "diplomacomputersem2b1" -> diplomacomputersem2b1
+            "diplomacomputersem3b1" -> diplomacomputersem3b1
+            "diplomacomputersem4b1" -> diplomacomputersem4b1
+            "diplomacomputersem5b1" -> diplomacomputersem5b1
+            "diplomacomputersem6b1" -> diplomacomputersem6b1
             else -> emptyArray()
         }
 
-        // Set subjects in AutoCompleteTextView
-        val subjectAdapter = ArrayAdapter(this,R.layout.show_list, subjectList)
+        val sucject=ArrayAdapter(this,R.layout.show_list,subjectList)
 
-        binding.selectSubject.setOnClickListener {
 
-            binding.selectSubject.setAdapter(subjectAdapter)
+
+
+        binding.selectSubject.setAdapter(sucject)
+
+
+        subjectList.forEach {
+            Log.d("@@","subject $it")
         }
 
     }
+
+
 
 
 }

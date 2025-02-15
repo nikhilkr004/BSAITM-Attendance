@@ -69,7 +69,7 @@ object Constant {
         "mechanical"
     )
 
-    val diplomcomputersem1b1 = arrayOf(
+    val diplomacomputersem1b1 = arrayOf(
         "English and Communication Skills - I",
         "Applied Mathematics - I",
         "Applied Physics - I",
@@ -77,7 +77,7 @@ object Constant {
         "Computer Workshop"
     )
 
-    val diplomcomputersem2b1 = arrayOf(
+    val diplomacomputersem2b1 = arrayOf(
         "Advances in IT",
         "Applied Mathematics - II",
         "Applied Physics - II",
@@ -87,7 +87,7 @@ object Constant {
         "Environmental Studies & Disaster Management"
     )
 
-    val diplomcomputersem3b1 = arrayOf(
+    val diplomacomputersem3b1 = arrayOf(
         "Industrial/In-House Training - I",
         "Operating Systems",
         "Digital Electronics",
@@ -95,7 +95,7 @@ object Constant {
         "Data Base Management System"
     )
 
-    val diplomcomputersem4b1 = arrayOf(
+    val diplomacomputersem4b1 = arrayOf(
         "English and Communication Skills - II",
         "Computer Organisation & Architecture",
         "Data Structures using C",
@@ -104,7 +104,7 @@ object Constant {
         "Minor Project"
     )
 
-    val diplomcomputersem5b1 = arrayOf(
+    val diplomacomputersem5b1 = arrayOf(
         "Industrial/In-House Training - II",
         "Web Technologies",
         "Python Programming",
@@ -113,7 +113,7 @@ object Constant {
         "Multidisciplinary Elective (MOOCs/Offline)"
     )
 
-    val diplomcomputersem6b1 = arrayOf(
+    val diplomacomputersem6b1 = arrayOf(
         "Application Development using Web Framework",
         "Entrepreneurship Development & Management",
         "Software Engineering",

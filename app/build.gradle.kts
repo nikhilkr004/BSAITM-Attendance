@@ -72,5 +72,7 @@ dependencies {
     implementation("org.apache.commons:commons-csv:1.8")
     implementation ("com.intuit.sdp:sdp-android:1.1.1")
     implementation ("com.google.firebase:firebase-auth:22.3.1")
+    implementation("com.github.marlonlom:timeago:4.0.3")
+
 
 }

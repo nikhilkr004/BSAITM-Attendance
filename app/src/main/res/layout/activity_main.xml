@@ -132,7 +132,7 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_2sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:hint="Branch"
+            android:hint="Subject"
             app:cursorColor="#EFC135">
 
             <AutoCompleteTextView
