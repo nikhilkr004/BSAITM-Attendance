@@ -1,6 +1,7 @@
 package com.example.bsaitmattendance.Activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,8 +11,11 @@ import com.example.bsaitmattendance.Adapter.LeaveRequestAdapter
 import com.example.bsaitmattendance.DataClass.LeaveRequest
 import com.example.bsaitmattendance.R
 import com.example.bsaitmattendance.databinding.ActivityLeaveRequestBinding
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.toObject
 
 class LeaveRequestActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -37,7 +41,7 @@ class LeaveRequestActivity : AppCompatActivity() {
 
         val recyclerview = binding.leaveRequestRecyclerview
         recyclerview.layoutManager = LinearLayoutManager(this)
-        leaveRequestAdapter = LeaveRequestAdapter(leaveArray)
+        leaveRequestAdapter = LeaveRequestAdapter(leaveArray, true)
         recyclerview.adapter = leaveRequestAdapter
 
         fatchStudentLeaveRequest()
@@ -45,17 +49,22 @@ class LeaveRequestActivity : AppCompatActivity() {
 
     private fun fatchStudentLeaveRequest() {
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        db.collection("leave_requests").whereEqualTo("teacherId", userId)
-            .addSnapshotListener { snapshot, _ ->
-                if (snapshot != null) {
-                    leaveArray.clear()
-                    for (doc in snapshot.documents) {
-                        val request = doc.toObject(LeaveRequest::class.java)
-                        if (request != null) leaveArray.add(request)
+        db.collection("leave_requests")
+            .whereEqualTo("teacherId", userId)
+            .addSnapshotListener { snapshots, _ ->
+                if (snapshots != null) {
+                    val leaveList = snapshots.documents.mapNotNull { doc ->
+                        doc.toObject(LeaveRequest::class.java)?.copy(leaveId = doc.id)
                     }
-                    leaveRequestAdapter.notifyDataSetChanged()
+
+                    // 🔥 Sort List By Timestamp (Latest First)
+                    val sortedLeaveList = leaveList.sortedByDescending { it.time }
+
+                    leaveRequestAdapter.updateList(sortedLeaveList) // ✅ RecyclerView Update
                 }
             }
     }
 
 }
+
+

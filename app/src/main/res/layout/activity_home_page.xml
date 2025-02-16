@@ -11,20 +11,23 @@
 
     <!-- User Profile Section -->
     <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:background="@drawable/card_background"
+        android:layout_height="@dimen/_100sdp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="8dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:id="@+id/userProfileImage"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
             android:layout_marginEnd="12dp"
-            app:civ_border_color="#F25044"
-            app:civ_border_width="@dimen/_1sdp"
             android:scaleType="centerCrop"
-            android:src="@drawable/user_" />
+            android:src="@drawable/user_"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="@dimen/_1sdp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -32,28 +35,23 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Angela Seamons"
-                android:textColor="#393737"
+                android:fontFamily="@font/bree_serif"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Head of UI/UX Design Team"
-                android:textColor="#5D5555"
+                android:textColor="#B7B0B0"
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="end"
-            android:layout_weight="1"
-            android:src="@drawable/baseline_notifications_active_24"
-         />
+
     </LinearLayout>
 
     <!-- Attendance Info Section -->
@@ -70,7 +68,7 @@
         <!-- Check-in Card -->
         <androidx.cardview.widget.CardView
             android:id="@+id/takeAttendance"
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="@dimen/_120sdp"
             android:layout_height="100dp"
             android:layout_margin="8dp"
             android:layout_weight="1"
@@ -107,7 +105,7 @@
         <!-- Check-out Card -->
         <androidx.cardview.widget.CardView
             android:id="@+id/addnotice"
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="@dimen/_120sdp"
             android:layout_height="100dp"
             android:layout_margin="8dp"
             android:layout_weight="1"
@@ -141,7 +139,7 @@
         <!-- On-time Percentage -->
         <androidx.cardview.widget.CardView
             android:id="@+id/leaveRequest"
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="@dimen/_120sdp"
             android:layout_height="100dp"
             android:layout_margin="8dp"
             android:layout_weight="1"
@@ -174,7 +172,7 @@
 
         <!-- Total Attendance -->
         <androidx.cardview.widget.CardView
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="@dimen/_120sdp"
             android:id="@+id/updateProfile"
             android:layout_height="100dp"
             android:layout_margin="8dp"
@@ -206,6 +204,38 @@
 
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_120sdp"
+            android:id="@+id/checkYourNotice"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#F5006A"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:src="@drawable/updated"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update/Delete\nView, Notice"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
     </GridLayout>
 
 </LinearLayout>

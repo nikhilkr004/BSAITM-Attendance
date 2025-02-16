@@ -39,11 +39,13 @@ android:textSize="@dimen/_16sdp"
         android:id="@+id/leaveRequestRecyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:listitem="@layout/leave_request_item"
+        android:layout_marginBottom="@dimen/_4sdp"
         android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/backBtn"
+        tools:listitem="@layout/leave_request_item" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

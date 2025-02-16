@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -73,6 +74,7 @@ dependencies {
     implementation ("com.intuit.sdp:sdp-android:1.1.1")
     implementation ("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.github.marlonlom:timeago:4.0.3")
-
+    implementation ("com.google.firebase:firebase-storage:20.3.0")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 
 }

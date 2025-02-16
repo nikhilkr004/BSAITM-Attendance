@@ -17,6 +17,9 @@
         android:theme="@style/Theme.BSAITMAttendance"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.ViewUpdateNoticeActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.LeaveRequestActivity"
             android:exported="false" />
         <activity
@@ -39,7 +42,7 @@
             android:exported="false" />
         <activity
             android:name=".Activity.HomePageActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
