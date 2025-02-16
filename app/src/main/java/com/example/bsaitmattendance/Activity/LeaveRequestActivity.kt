@@ -48,6 +48,7 @@ class LeaveRequestActivity : AppCompatActivity() {
     }
 
     private fun fatchStudentLeaveRequest() {
+
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
         db.collection("leave_requests")
             .whereEqualTo("teacherId", userId)

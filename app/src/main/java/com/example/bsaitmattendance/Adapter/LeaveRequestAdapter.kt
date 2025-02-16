@@ -41,6 +41,8 @@ class LeaveRequestAdapter(var data: List<LeaveRequest>, private val isTeacherVie
             binding.time.text=convertTimestampToDate(data.time)
 
             binding.textView4.text=data.status
+
+
             if (data.status=="Accepted"){
                 binding.textView4.setTextColor(Color.GREEN)
             }
@@ -52,8 +54,8 @@ class LeaveRequestAdapter(var data: List<LeaveRequest>, private val isTeacherVie
                 // 🔥 Agar request "Accepted" ya "Rejected" hai, toh buttons hide kar do
                 if (data.status == "Accepted" || data.status == "Rejected") {
                     binding.acceptBtn.visibility = View.GONE
-                    binding.textView4.visibility=View.VISIBLE
                     binding.textView11.visibility = View.GONE
+                    binding.textView4.visibility=View.VISIBLE
                 } else {
                     binding.acceptBtn.visibility = View.VISIBLE
                     binding.textView11.visibility = View.VISIBLE
