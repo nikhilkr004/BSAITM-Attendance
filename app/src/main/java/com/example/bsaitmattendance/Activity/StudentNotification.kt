@@ -50,6 +50,8 @@ class StudentNotification : AppCompatActivity() {
 
         }
 
+        binding.back.setOnClickListener { finish() }
+
 
     }
 

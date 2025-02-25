@@ -11,8 +11,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.bsaitmattendance.Adapter.AttendanceSessionAdapter
 import com.example.bsaitmattendance.Constant
+import com.example.bsaitmattendance.DataClass.AttendanceSession
 import com.example.bsaitmattendance.DataClass.Teacher
 import com.example.bsaitmattendance.MainActivity
 import com.example.bsaitmattendance.R
@@ -31,6 +35,8 @@ class HomePageActivity : AppCompatActivity() {
     private var profileImageUri: Uri? = null
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private lateinit var adapter: AttendanceSessionAdapter
+    private lateinit var sessionAttendanceData:ArrayList<AttendanceSession>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,10 +46,19 @@ class HomePageActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        sessionAttendanceData= ArrayList()
+        val recyclerview=binding.recyclerview
+        recyclerview.layoutManager=LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
+
+        adapter=AttendanceSessionAdapter(sessionAttendanceData)
+        recyclerview.adapter=adapter
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
         fetchProfileInfo()
+
+//        fatchAttendanceSession()
+
 
         binding.takeAttendance.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
@@ -62,6 +77,24 @@ class HomePageActivity : AppCompatActivity() {
         }
         binding.updateProfile.setOnClickListener { updateUserProfile(profileImageUri) }
     }
+
+    private fun fatchAttendanceSession() {
+        val uid=auth.currentUser!!.uid
+        db.collection("allAttendance").get().addOnSuccessListener { snapshot ->
+            val sessionList = mutableListOf<AttendanceSession>()
+
+            for (document in snapshot.documents) {
+                val session = document.toObject(AttendanceSession::class.java)
+
+                session?.let { sessionList.add(it) }
+            }
+
+            adapter.notifyDataSetChanged()
+        }.addOnFailureListener { e ->
+            Toast.makeText(this, "Error fetching sessions: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     private fun updateUserProfile(profileImageUri: Uri?) {
         val dialog = BottomSheetDialog(this)
@@ -229,10 +262,9 @@ class HomePageActivity : AppCompatActivity() {
                     val data = document.toObject(Teacher::class.java)
                     if (data != null) {
 
-                        Glide.with(this).load(data.image).placeholder(R.drawable.user_).into(binding.userProfileImage)
+                        Glide.with(this).load(data.image).placeholder(R.drawable.user_).into(binding.profileImage)
 
                         binding.userName.text = data.name.toString()
-                        binding.email.text = data.email.toString()
                     }
                 }
             }.addOnFailureListener {

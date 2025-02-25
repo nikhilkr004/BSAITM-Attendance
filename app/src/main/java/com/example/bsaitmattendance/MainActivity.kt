@@ -18,7 +18,10 @@ import com.example.bsaitmattendance.Constant.diplomacomputersem3b1
 import com.example.bsaitmattendance.Constant.diplomacomputersem4b1
 import com.example.bsaitmattendance.Constant.diplomacomputersem5b1
 import com.example.bsaitmattendance.Constant.diplomacomputersem6b1
+import com.example.bsaitmattendance.DataClass.AttendanceSession
 import com.example.bsaitmattendance.databinding.ActivityMainBinding
+import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -30,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     }
     private val students: MutableList<Student> = mutableListOf()
     private lateinit var db: FirebaseFirestore
-
 
 
     private lateinit var attendanceAdapter: AttendanceAdapter
@@ -93,52 +95,96 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun submitAttendance() {
+        val teacherName = "Teacher XYZ" // Fetch dynamically if needed
         val course = binding.courses.text.toString()
         val branch = binding.branch.text.toString()
         val semester = binding.semester.text.toString()
         val batch = binding.batch.text.toString()
         val subject = binding.selectSubject.text.toString()
 
-        val newSubject=subject.toString().trim().replace(" ", "").lowercase()
-
+        val newSubject = subject.trim().replace(" ", "").lowercase()
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         val checkInTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date())
 
-        for ((studentId, status) in attendanceMap) {
+        var presentCount = 0
+        val presentStudents = mutableListOf<String>()
+
+        for (student in students) {
+            val status = attendanceMap[student.id] ?: "Absent"
+            if (status == "Present") {
+                presentCount++
+                presentStudents.add(student.name!!) // Add present student name to the list
+            }
+
+            val studentAttendance = Student(
+                id = student.id!!,
+                name = student.name,
+                status = status,
+            )
+
             val attendanceRef = db.collection(course)
                 .document(branch)
                 .collection(semester)
                 .document(batch)
                 .collection("studentsAttendance")
-                .document(studentId)
+                .document(student.id)
                 .collection("subjects")
                 .document(newSubject)
                 .collection("attendance")
                 .document(currentDate)
 
-            val attendanceData = hashMapOf(
-                "check_in_time" to checkInTime,
-                "status" to (status ?: "Absent")
-            )
-
-            Log.d("DEBUG", "Saving Attendance for Student: $studentId, Subject: $subject, Date: $currentDate, Status: ${status ?: "Absent"}")
-
-            attendanceRef.set(attendanceData)
+            attendanceRef.set(studentAttendance)
                 .addOnSuccessListener {
-                    Log.d("DEBUG", "Attendance Saved Successfully for $studentId on $currentDate")
-                    Constant.hideDialog()
-                    finish()
+                    Log.d("DEBUG", "Attendance saved for ${student.name}")
                 }
                 .addOnFailureListener { e ->
-                    Log.e("FirestoreError", "Error submitting attendance: ${e.message}")
-                    Toast.makeText(
-                        this,
-                        "Error submitting attendance: ${e.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Log.e("FirestoreError", "Error saving attendance: ${e.message}")
+                    Toast.makeText(this, "Error saving attendance", Toast.LENGTH_SHORT).show()
                 }
         }
+
+        val uniqueId = generateFirestoreId()
+
+        // Save attendance session summary
+        val attendanceSession = AttendanceSession(
+            session = uniqueId,
+            teacherUid = FirebaseAuth.getInstance().currentUser!!.uid,
+            teacherName = teacherName,
+            course = course,
+            branch = branch,
+            semester = semester,
+            batch = batch,
+            subject = subject,
+            date = currentDate,
+            time = Timestamp.now(),
+            presentCount = presentCount,
+            totalStudents = students.size,
+            presentStudents = presentStudents
+        )
+
+        val sessionRef = db.collection("attendanceSessions").document(course).collection(branch)
+            .document(semester).collection(batch).document(newSubject).collection("status")
+
+        sessionRef.document(uniqueId).set(attendanceSession)
+            .addOnSuccessListener {
+
+                db.collection("allAttendance").document(uniqueId).set(attendanceSession)
+                    .addOnSuccessListener {
+                        Constant.hideDialog()
+                        finish()
+                        Log.d("DEBUG", "Attendance session saved successfully")
+                    }
+                Log.d("DEBUG", "Attendance session saved successfully")
+
+            }
+            .addOnFailureListener { e ->
+                Log.e("FirestoreError", "Error saving session: ${e.message}")
+                Toast.makeText(this, "Error saving attendance session", Toast.LENGTH_SHORT).show()
+            }
     }
+
+    private fun generateFirestoreId(): String =
+        FirebaseFirestore.getInstance().collection("attendanceSessions").document().id
 
 
     private fun getUserInfo() {
@@ -199,6 +245,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
     private fun checkAndSetSubjects() {
 
         val course = binding.courses.text.toString().trim().replace(" ", "").lowercase()
@@ -206,7 +253,7 @@ class MainActivity : AppCompatActivity() {
         val semester = binding.semester.text.toString().trim().replace(" ", "").lowercase()
         val batch = binding.batch.text.toString().trim().replace(" ", "").lowercase()
 
-        val selectedKey=course+branch+semester+batch
+        val selectedKey = course + branch + semester + batch
 
         val subjectList = when (selectedKey) {
             "diplomacomputersem1b1" -> diplomacomputersem1b1
@@ -218,7 +265,7 @@ class MainActivity : AppCompatActivity() {
             else -> emptyArray()
         }
 
-        val sucject=ArrayAdapter(this,R.layout.show_list,subjectList)
+        val sucject = ArrayAdapter(this, R.layout.show_list, subjectList)
 
 
 
@@ -227,12 +274,10 @@ class MainActivity : AppCompatActivity() {
 
 
         subjectList.forEach {
-            Log.d("@@","subject $it")
+            Log.d("@@", "subject $it")
         }
 
     }
-
-
 
 
 }

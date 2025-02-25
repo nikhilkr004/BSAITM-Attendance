@@ -37,28 +37,30 @@ class LeaveRequestAdapter(var data: List<LeaveRequest>, private val isTeacherVie
             binding.leaveTitle.text = data.title
             binding.leaveDuration.text = "${data.fromDate} - ${data.toDate}"
             binding.leaveTitle.text = data.title
+            binding.leaveDisc.text=data.reason.toString()
 
             binding.time.text=convertTimestampToDate(data.time)
 
             binding.textView4.text=data.status
 
 
-            if (data.status=="Accepted"){
-                binding.textView4.setTextColor(Color.GREEN)
-            }
-            else if (data.status=="Rejected"){
-                binding.textView4.setTextColor(Color.RED)
-            }
+            // Set the status text color based on its value.
+            binding.textView4.setTextColor(
+                when (data.status) {
+                    "Pending" -> Color.YELLOW
+                    "Accepted" -> Color.GREEN
+                    else -> Color.RED
+                }
+            )
 
+            /// if is teacher view  is true
             if (isTeacherView) {
                 // 🔥 Agar request "Accepted" ya "Rejected" hai, toh buttons hide kar do
-                if (data.status == "Accepted" || data.status == "Rejected") {
-                    binding.acceptBtn.visibility = View.GONE
-                    binding.textView11.visibility = View.GONE
-                    binding.textView4.visibility=View.VISIBLE
-                } else {
+                if (data.status=="Pending") {
                     binding.acceptBtn.visibility = View.VISIBLE
                     binding.textView11.visibility = View.VISIBLE
+                    binding.textView4.visibility=View.INVISIBLE
+
 
                     binding.acceptBtn.setOnClickListener {
                         updateStatus("Accepted",data.leaveId,context,db)
@@ -66,11 +68,17 @@ class LeaveRequestAdapter(var data: List<LeaveRequest>, private val isTeacherVie
                     binding.textView11.setOnClickListener {
                         updateStatus("Rejected",data.leaveId,context,db)
                     }
+
+                } else {
+                    binding.acceptBtn.visibility = View.INVISIBLE
+                    binding.textView11.visibility = View.INVISIBLE
+                    binding.textView4.visibility=View.VISIBLE
+
                 }
             } else {
-                binding.acceptBtn.visibility = View.GONE
-                binding.textView11.visibility = View.GONE
-                binding.textView4.visibility=View.VISIBLE
+                binding.acceptBtn.visibility = View.INVISIBLE
+                binding.textView11.visibility = View.INVISIBLE
+
             }
 
 
@@ -85,6 +93,7 @@ class LeaveRequestAdapter(var data: List<LeaveRequest>, private val isTeacherVie
 
                         try {
                             binding.studentName.text = userdata!!.name.toString()
+                            binding.studentInfo.text="${userdata.course + " " +"${userdata.branch}"+ " "+userdata.semester}"
 
                         } catch (e: Exception) {
 
