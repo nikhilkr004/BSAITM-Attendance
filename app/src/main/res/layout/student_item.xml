@@ -5,6 +5,7 @@
     android:layout_height="@dimen/_50sdp"
     app:cardCornerRadius="@dimen/_10sdp"
     app:cardElevation="@dimen/_5sdp"
+    android:background="#D9D3D3"
     android:layout_margin="@dimen/_5sdp"
 
    >
@@ -28,7 +29,7 @@
         android:textColor="@color/black"
         android:text="Student Name"
         android:layout_marginEnd="@dimen/_5sdp"
-        android:textSize="20sp"
+        android:textSize="@dimen/_13sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/rgAttendance"
         app:layout_constraintStart_toStartOf="parent"

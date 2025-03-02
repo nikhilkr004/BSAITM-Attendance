@@ -11,11 +11,11 @@ import com.example.bsaitmattendance.R
 
 class AttendanceAdapter(
     private val students: List<Student>,
-    private val onAttendanceSelected: (Int, String) -> Unit, // Callback for selected attendance status
-    private val onPresentCountUpdated: (Int) -> Unit // Callback for updating present count
+    private val onAttendanceSelected: (Int, String) -> Unit, // Callback for attendance selection
+    private val onPresentCountUpdated: (Int) -> Unit // Callback for present count update
 ) : RecyclerView.Adapter<AttendanceAdapter.AttendanceViewHolder>() {
 
-    private var presentCount = 0 // Track the number of students marked as present
+    private var presentCount = students.count { it.status == "Present" } // Initialize present count
 
     inner class AttendanceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val studentNameTextView: TextView = itemView.findViewById(R.id.tvStudentName)
@@ -33,35 +33,37 @@ class AttendanceAdapter(
         val student = students[position]
         holder.studentNameTextView.text = student.name
 
-        // Preselect the radio button based on the student's current attendance status
+        // **Disable listener before setting selection**
+        holder.radioGroup.setOnCheckedChangeListener(null)
+
+        // **Preselect the radio button based on attendance status**
         when (student.status) {
             "Present" -> holder.radioButtonPresent.isChecked = true
             "Absent" -> holder.radioButtonAbsent.isChecked = true
             else -> holder.radioGroup.clearCheck()
         }
 
-        // Handle radio button selection and update attendance status
-        holder.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+        // **Enable listener after setting selection**
+        holder.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             val previousStatus = student.status
             val selectedStatus = when (checkedId) {
                 R.id.rbPresent -> "Present"
                 R.id.rbAbsent -> "Absent"
-                else -> null
+                else -> return@setOnCheckedChangeListener // Ignore invalid selections
             }
 
-            if (selectedStatus != null) {
-                // Update the student's attendance status
+            if (selectedStatus != previousStatus) { // **Only update if status actually changes**
                 student.status = selectedStatus
                 onAttendanceSelected(position, selectedStatus)
 
-                // Update present count based on selection
-                if (selectedStatus == "Present" && previousStatus != "Present") {
-                    presentCount++
-                } else if (selectedStatus == "Absent" && previousStatus == "Absent") {
-                    presentCount--
+                // **Update present count correctly**
+                if (selectedStatus == "Present" && previousStatus!="Present") {
+                    presentCount++ // **Increase present count when marking present**
+                } else if (selectedStatus == "Absent" && previousStatus=="Present") {
+                    presentCount-- // **Decrease present count when marking absent**
                 }
 
-                // Notify activity to update the present count
+                // **Notify activity to update present count**
                 onPresentCountUpdated(presentCount)
             }
         }

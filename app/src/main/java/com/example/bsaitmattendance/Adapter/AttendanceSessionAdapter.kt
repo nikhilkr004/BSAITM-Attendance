@@ -13,8 +13,13 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 
-class AttendanceSessionAdapter (private val sessions: List<AttendanceSession>) :
+class AttendanceSessionAdapter (private var sessions: List<AttendanceSession>) :
     RecyclerView.Adapter<AttendanceSessionAdapter.AttendanceSessionViewHolder>() {
+
+        fun updateList(newlist:List<AttendanceSession>) {
+            sessions=newlist
+            notifyDataSetChanged()
+        }
 
     class AttendanceSessionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val teacherName: TextView = view.findViewById(R.id.textView10)
@@ -49,8 +54,8 @@ class AttendanceSessionAdapter (private val sessions: List<AttendanceSession>) :
     private fun setupPieChart(pieChart: PieChart, present: Int, total: Int) {
         val absent = total - present
         val entries = listOf(
-            PieEntry(present.toFloat(), "Present"),
-            PieEntry(absent.toFloat(), "Absent")
+            PieEntry(present.toFloat(), ""),
+            PieEntry(absent.toFloat(), "")
         )
 
         val dataSet = PieDataSet(entries, "Attendance")

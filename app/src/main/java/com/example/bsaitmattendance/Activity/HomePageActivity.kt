@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.example.bsaitmattendance.Adapter.AttendanceSessionAdapter
 import com.example.bsaitmattendance.Constant
 import com.example.bsaitmattendance.DataClass.AttendanceSession
+import com.example.bsaitmattendance.DataClass.LeaveRequest
 import com.example.bsaitmattendance.DataClass.Teacher
 import com.example.bsaitmattendance.MainActivity
 import com.example.bsaitmattendance.R
@@ -58,7 +59,7 @@ class HomePageActivity : AppCompatActivity() {
         fetchProfileInfo()
 
 //        fatchAttendanceSession()
-
+        fatchAttendanceSession()
 
         binding.takeAttendance.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
@@ -79,20 +80,21 @@ class HomePageActivity : AppCompatActivity() {
     }
 
     private fun fatchAttendanceSession() {
-        val uid=auth.currentUser!!.uid
-        db.collection("allAttendance").get().addOnSuccessListener { snapshot ->
-            val sessionList = mutableListOf<AttendanceSession>()
 
-            for (document in snapshot.documents) {
-                val session = document.toObject(AttendanceSession::class.java)
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+        db.collection("allAttendance")
+            .addSnapshotListener { snapshots, _ ->
+                if (snapshots != null) {
+                    val leaveList = snapshots.documents.mapNotNull { doc ->
+                        doc.toObject(AttendanceSession::class.java)?.copy(session = doc.id)
+                    }
 
-                session?.let { sessionList.add(it) }
+                    // 🔥 Sort List By Timestamp (Latest First)
+                    val sortedLeaveList = leaveList.sortedByDescending { it.time }
+
+                    adapter.updateList(sortedLeaveList) // ✅ RecyclerView Update
+                }
             }
-
-            adapter.notifyDataSetChanged()
-        }.addOnFailureListener { e ->
-            Toast.makeText(this, "Error fetching sessions: ${e.message}", Toast.LENGTH_SHORT).show()
-        }
     }
 
 

@@ -12,12 +12,36 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bsaitmattendance.Adapter.AttendanceAdapter
 import com.example.bsaitmattendance.Adapter.Student
+import com.example.bsaitmattendance.Constant.diplomacivilsem1b1
+import com.example.bsaitmattendance.Constant.diplomacivilsem2b1
+import com.example.bsaitmattendance.Constant.diplomacivilsem3b1
+import com.example.bsaitmattendance.Constant.diplomacivilsem4b1
+import com.example.bsaitmattendance.Constant.diplomacivilsem5b1
+import com.example.bsaitmattendance.Constant.diplomacivilsem6b1
 import com.example.bsaitmattendance.Constant.diplomacomputersem1b1
 import com.example.bsaitmattendance.Constant.diplomacomputersem2b1
 import com.example.bsaitmattendance.Constant.diplomacomputersem3b1
 import com.example.bsaitmattendance.Constant.diplomacomputersem4b1
 import com.example.bsaitmattendance.Constant.diplomacomputersem5b1
 import com.example.bsaitmattendance.Constant.diplomacomputersem6b1
+import com.example.bsaitmattendance.Constant.diplomaelectricalsem1b1
+import com.example.bsaitmattendance.Constant.diplomaelectricalsem2b1
+import com.example.bsaitmattendance.Constant.diplomaelectricalsem3b1
+import com.example.bsaitmattendance.Constant.diplomaelectricalsem4b1
+import com.example.bsaitmattendance.Constant.diplomaelectricalsem5b1
+import com.example.bsaitmattendance.Constant.diplomaelectricalsem6b1
+import com.example.bsaitmattendance.Constant.diplomaelectronicsem1b1
+import com.example.bsaitmattendance.Constant.diplomaelectronicsem2b1
+import com.example.bsaitmattendance.Constant.diplomaelectronicsem3b1
+import com.example.bsaitmattendance.Constant.diplomaelectronicsem4b1
+import com.example.bsaitmattendance.Constant.diplomaelectronicsem5b1
+import com.example.bsaitmattendance.Constant.diplomaelectronicsem6b1
+import com.example.bsaitmattendance.Constant.diplomamechanicalsem1b1
+import com.example.bsaitmattendance.Constant.diplomamechanicalsem2b1
+import com.example.bsaitmattendance.Constant.diplomamechanicalsem3b1
+import com.example.bsaitmattendance.Constant.diplomamechanicalsem4b1
+import com.example.bsaitmattendance.Constant.diplomamechanicalsem5b1
+import com.example.bsaitmattendance.Constant.diplomamechanicalsem6b1
 import com.example.bsaitmattendance.DataClass.AttendanceSession
 import com.example.bsaitmattendance.databinding.ActivityMainBinding
 import com.google.firebase.Timestamp
@@ -256,12 +280,46 @@ class MainActivity : AppCompatActivity() {
         val selectedKey = course + branch + semester + batch
 
         val subjectList = when (selectedKey) {
+            ///computer science
             "diplomacomputersem1b1" -> diplomacomputersem1b1
             "diplomacomputersem2b1" -> diplomacomputersem2b1
             "diplomacomputersem3b1" -> diplomacomputersem3b1
             "diplomacomputersem4b1" -> diplomacomputersem4b1
             "diplomacomputersem5b1" -> diplomacomputersem5b1
             "diplomacomputersem6b1" -> diplomacomputersem6b1
+
+            ////civil
+            "diplomacivilsem1b1" -> diplomacivilsem1b1
+            "diplomacivilsem2b1" -> diplomacivilsem2b1
+            "diplomacivilsem3b1" -> diplomacivilsem3b1
+            "diplomacivilsem4b1" -> diplomacivilsem4b1
+            "diplomacivilsem5b1" -> diplomacivilsem5b1
+            "diplomacivilsem6b1" -> diplomacivilsem6b1
+
+
+            /// electrical
+            "diplomaelectricalsem1b1" -> diplomaelectricalsem1b1
+            "diplomaelectricalsem2b1" -> diplomaelectricalsem2b1
+            "diplomaelectricalsem3b1" -> diplomaelectricalsem3b1
+            "diplomaelectricalsem4b1" -> diplomaelectricalsem4b1
+            "diplomaelectricalsem5b1" -> diplomaelectricalsem5b1
+            "diplomaelectricalsem6b1" -> diplomaelectricalsem6b1
+
+            //eletronics
+            "diplomaelectronicsem1b1" -> diplomaelectronicsem1b1
+            "diplomaelectronicsem2b1" -> diplomaelectronicsem2b1
+            "diplomaelectronicsem3b1" -> diplomaelectronicsem3b1
+            "diplomaelectronicsem4b1" -> diplomaelectronicsem4b1
+            "diplomaelectronicsem5b1" -> diplomaelectronicsem5b1
+            "diplomaelectronicsem6b1" -> diplomaelectronicsem6b1
+
+            "diplomamechanicalsem1b1" -> diplomamechanicalsem1b1
+            "diplomamechanicalsem2b1" -> diplomamechanicalsem2b1
+            "diplomamechanicalsem3b1" -> diplomamechanicalsem3b1
+            "diplomamechanicalsem4b1" -> diplomamechanicalsem4b1
+            "diplomamechanicalsem5b1" -> diplomamechanicalsem5b1
+            "diplomamechanicalsem6b1" -> diplomamechanicalsem6b1
+
             else -> emptyArray()
         }
 

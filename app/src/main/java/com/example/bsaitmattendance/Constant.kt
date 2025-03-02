@@ -121,4 +121,222 @@ object Constant {
         "Major Project/Industrial Training"
     )
 
+
+    ///////civil
+
+    val diplomacivilsem1b1 = arrayOf(
+        "English and Communication Skills - I",
+        "Applied Mathematics - I",
+        "Applied Physics - I",
+        "Applied Chemistry",
+        "Engineering Graphics",
+        "Plumbing Services",
+        "General Workshop Practice"
+    )
+
+    val diplomacivilsem2b1 = arrayOf(
+        "Fundamentals of IT",
+        "Applied Physics - II",
+        "Applied Mathematics - II",
+        "Civil Engineering Practices",
+        "Construction Material",
+        "Applied Mechanics",
+        "Environmental Studies & Disaster Management"
+    )
+
+    val diplomacivilsem3b1 = arrayOf(
+        "Industrial/In-House Training - I",
+        "Concrete Technology",
+        "Structural Mechanics",
+        "Surveying - I",
+        "Building Construction",
+        "Fluid Mechanics",
+        "Multidisciplinary Elective"
+    )
+
+    val diplomacivilsem4b1 = arrayOf(
+        "English & Communication Skills – II",
+        "Surveying - II",
+        "Water Supply & Waste Water Engineering",
+        "Soil Mechanics & Foundation Engineering",
+        "Irrigation Engineering",
+        "Open Elective",
+        "Minor Project"
+    )
+
+    val diplomacivilsem5b1 = arrayOf(
+        "Industrial/In-House Training - II",
+        "RCC Design and Drawing",
+        "Estimation & Costing",
+        "Railways, Bridges & Tunnels",
+        "Highway Engineering",
+        "Construction Management",
+        "Programme Elective I"
+    )
+
+    val diplomacivilsem6b1 = arrayOf(
+        "Steel Structures Design & Drawing",
+        "Earthquake Resistant Building Construction",
+        "Programme Elective II",
+        "Major Project/Industrial Training"
+    )
+
+//////eletrical
+val diplomaelectricalsem1b1 = arrayOf(
+    "English & Communication Skills - I",
+    "Applied Mathematics - I",
+    "Applied Physics - I",
+    "Principles of Electrical Engineering",
+    "Fundamentals of IT",
+    "Engineering Graphics"
+)
+
+    val diplomaelectricalsem2b1 = arrayOf(
+        "Applied Mathematics - II",
+        "Applied Physics - II",
+        "Electrical Networks",
+        "Non-conventional Sources of Energy",
+        "Environmental Studies and Disaster Management",
+        "Basic Electrical Workshop"
+    )
+
+    val diplomaelectricalsem3b1 = arrayOf(
+        "Industrial/In-House Training - I",
+        "Electrical Machines - I",
+        "Analog & Digital Electronics",
+        "Electrical Measurement & Instrumentation",
+        "Utilization of Electrical Energy",
+        "Power System"
+    )
+
+    val diplomaelectricalsem4b1 = arrayOf(
+        "English & Communication Skills – II",
+        "Electrical Machines - II",
+        "Power System Protection",
+        "Industrial Electronics and Control of Drives",
+        "PLC & Microcontrollers",
+        "Minor Project"
+    )
+
+    val diplomaelectricalsem5b1 = arrayOf(
+        "Industrial/In-House Training - II",
+        "Electrical Traction System",
+        "HVDC & Flexible AC Transmission Systems",
+        "Smart Grid and Distributed Generation System",
+        "Energy Conservation and Audit",
+        "Entrepreneurship Development and Management"
+    )
+
+    val diplomaelectricalsem6b1 = arrayOf(
+        "Installation and Maintenance of Electrical Equipment",
+        "Solar Panel Installation and Maintenance",
+        "Programme Elective II",
+        "Major Project/Industrial Training"
+    )
+
+
+    val diplomaelectronicsem1b1 = arrayOf(
+        "English and Communication Skills - I",
+        "Applied Mathematics - I",
+        "Applied Physics - I",
+        "Fundamentals of IT",
+        "Fundamentals of Electrical Engineering",
+        "Electrical & Electronics Workshop - I"
+    )
+
+    val diplomaelectronicsem2b1 = arrayOf(
+        "Electronic Devices & Circuits - I",
+        "Applied Mathematics - II",
+        "Applied Physics - II",
+        "Electronic Instruments and Measurement",
+        "Engineering Graphics",
+        "Electrical & Electronics Workshop - II",
+        "Environmental Studies & Disaster Management"
+    )
+
+    val diplomaelectronicsem3b1 = arrayOf(
+        "Industrial/In-House Training - I",
+        "Analog and Digital Communication",
+        "Digital Electronics",
+        "Electronic Devices & Circuits - II",
+        "Programming in C",
+        "Electronic Design and Simulation"
+    )
+
+    val diplomaelectronicsem4b1 = arrayOf(
+        "English & Communication Skills – II",
+        "Microprocessor & Microcontrollers",
+        "Communication Systems/Power Electronics",
+        "Instrumentation",
+        "PLC & SCADA",
+        "Minor Project"
+    )
+
+    val diplomaelectronicsem5b1 = arrayOf(
+        "Industrial/In-House Training - II",
+        "Optical Fibre Communication",
+        "Wireless & Mobile Communication",
+        "Computer Networks",
+        "Programme Elective I"
+    )
+
+    val diplomaelectronicsem6b1 = arrayOf(
+        "Programme Elective II",
+        "Industrial Internship / Major Project"
+    )
+    val diplomamechanicalsem1b1 = arrayOf(
+        "English and Communication Skills - I",
+        "Applied Mathematics - I",
+        "Applied Physics - I",
+        "Engineering Graphics",
+        "Fundamentals of IT",
+        "Environmental Studies & Disaster Management",
+        "General Workshop Practice"
+    )
+
+    val diplomamechanicalsem2b1 = arrayOf(
+        "Applied Mathematics - II",
+        "Applied Physics - II",
+        "Applied Chemistry",
+        "Applied Mechanics",
+        "Mechanical Engineering Drawing - I",
+        "Workshop Technology - I",
+        "Workshop Practice - I"
+    )
+
+    val diplomamechanicalsem3b1 = arrayOf(
+        "Industrial/In-House Training - I",
+        "Thermodynamics - I",
+        "Strength of Materials",
+        "Theory of Machines",
+        "Mechanical Engineering Drawing - II",
+        "Workshop Technology - II",
+        "Workshop Practice - II"
+    )
+
+    val diplomamechanicalsem4b1 = arrayOf(
+        "English & Communication Skills – II",
+        "Thermodynamics - II",
+        "Fluid Mechanics & Machinery",
+        "Manufacturing Processes",
+        "Machine Design",
+        "Metrology & Quality Control",
+        "Minor Project"
+    )
+
+    val diplomamechanicalsem5b1 = arrayOf(
+        "Industrial/In-House Training - II",
+        "Automobile Engineering",
+        "Power Plant Engineering",
+        "CAD/CAM",
+        "Entrepreneurship Development & Management",
+        "Programme Elective I"
+    )
+
+    val diplomamechanicalsem6b1 = arrayOf(
+        "CNC Machines and Automation",
+        "Programme Elective II",
+        "Industrial Internship / Major Project"
+    )
+
 }
